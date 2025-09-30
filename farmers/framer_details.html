@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Farmers Info</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <script src="farmers.js"></script>
+</head>
+
+<body>
+  <section class="text-gray-600 body-font">
+    <div class="container px-5 py-10 mx-auto">
+      <div id="farmers-container" class="flex flex-wrap sm:-m-4 -mx-4 -mb-10 -mt-4">
+        <!-- Farmer Cards will be inserted here -->
+      </div>
+    </div>
+  </section>
+
+  <script>
+    const container = document.getElementById("farmers-container");
+
+    farmers.forEach((farmer, index) => {
+      const card = `
+        <div class="p-4 md:w-1/3 sm:mb-0 mb-6">
+          <div class="rounded-lg h-64 overflow-hidden">
+            <img alt="${farmer.name}" class="object-cover object-center h-full w-full" src="${farmer.img}">
+          </div>
+          <h2 class="text-xl font-medium title-font text-gray-900 mt-5">${farmer.name}</h2>
+          <p class="text-base leading-relaxed mt-2">
+            <b>Land:</b> ${farmer.land}<br>
+            <b>Soil Type:</b> ${farmer.soil}<br>
+            <b>Crops:</b> ${farmer.crops}
+          </p>
+          <button onclick="window.location.href='farmer_one_info.html?id=${index}'" 
+  class="mt-3 px-4 py-2 bg-indigo-500 text-white rounded-lg hover:bg-indigo-600">
+  Know More
+</button>
+        </div>
+      `;
+      container.innerHTML += card;
+    });
+  </script>
+</body>
+
+</html>

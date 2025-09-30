@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Choose Your Category</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+<body>
+  <section class="text-gray-600 body-font">
+    <div class="container px-5 py-24 mx-auto text-center">
+      <!-- Heading -->
+      <div class="mb-12">
+        <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">Who Are You Looking For?</h1>
+        <p class="lg:w-2/3 mx-auto leading-relaxed text-base">
+          Select the type of service or professional you want to explore.
+        </p>
+      </div>
+
+      <div class="flex flex-wrap -mx-4 -mb-10 justify-center">
+
+        <!-- Farmer Option -->
+        <div class="sm:w-1/2 mb-10 px-4 cursor-pointer" onclick="window.location.href='farmers/farmer.html'">
+          <div class="rounded-lg h-64 overflow-hidden border hover:shadow-lg transition-shadow duration-200">
+            <img alt="Farmer" class="object-cover object-center h-full w-full" src="https://media.istockphoto.com/id/990892396/photo/indian-farmer-holding-crop-plant-in-his-wheat-field.jpg?s=612x612&w=0&k=20&c=je5zLlBPEeFplzaSAg_hLryRy2r9AiajSBV_2dd3u_A=">
+          </div>
+          <h2 class="title-font text-2xl font-medium text-gray-900 mt-6 mb-3">Farmer</h2>
+          <p class="leading-relaxed text-base">
+            Hire skilled farmers for agricultural services or land management.
+          </p>
+          <button class="flex mx-auto mt-6 text-white bg-green-500 border-0 py-2 px-5 focus:outline-none hover:bg-green-600 rounded">
+            Select Farmer
+          </button>
+        </div>
+
+        <!-- Industry Option -->
+        <div class="sm:w-1/2 mb-10 px-4 cursor-pointer" onclick="window.location.href='industry/industry.html'">
+          <div class="rounded-lg h-64 overflow-hidden border hover:shadow-lg transition-shadow duration-200">
+            <img alt="Industry" class="object-cover object-center h-full w-full" src="https://media.istockphoto.com/id/1357389219/photo/metallurgical-plant-with-pipes-environmental-pollution-industrial-landscape.jpg?s=612x612&w=0&k=20&c=PCaKditFkLsdphBLMtb3d56OUZpT1vPCeFBxvdiAU50=">
+          </div>
+          <h2 class="title-font text-2xl font-medium text-gray-900 mt-6 mb-3">Industry</h2>
+          <p class="leading-relaxed text-base">
+            Connect with industrial suppliers or services for business solutions.
+          </p>
+          <button class="flex mx-auto mt-6 text-white bg-blue-500 border-0 py-2 px-5 focus:outline-none hover:bg-blue-600 rounded">
+            Select Industry
+          </button>
+        </div>
+
+      </div>
+
+      <!-- Admin Button -->
+      <div class="mt-10">
+        <button id="adminBtn" class="text-white bg-red-500 hover:bg-red-600 px-6 py-3 rounded-md" onclick="window.location.href='admin/admin.html'">
+          I am the Admin
+        </button>
+      </div>
+
+    </div>
+  </section>
+
+</body>
+</html>

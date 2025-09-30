@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Industry Info & Hire</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="industries.js"></script>
+    <style>
+        /* Hidden hire form initially */
+        #hire_body {
+            display: none;
+            padding: 2rem;
+            background: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 0.5rem;
+            margin-top: 2rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="header"></div>
+
+    <section class="text-gray-600 body-font overflow-hidden">
+        <div class="container px-5 py-24 mx-auto">
+            <!-- Industry details -->
+            <div id="industryDetails" class="lg:w-4/5 mx-auto flex flex-wrap">
+                <!-- Industry details injected here -->
+            </div>
+
+            <!-- Hire form -->
+            <div id="hire_body">
+                <div class="flex flex-col text-center w-full mb-12">
+                    <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">Apply Now!</h1>
+                    <p class="lg:w-2/3 mx-auto leading-relaxed text-base">Please enter your name and contact info.</p>
+                </div>
+                <div class="lg:w-1/2 md:w-2/3 mx-auto">
+                    <form id="hireForm" class="flex flex-wrap -m-2" novalidate>
+                        <div class="p-2 w-1/2">
+                            <div class="relative">
+                                <label for="name" class="leading-7 text-sm text-gray-600">Name</label>
+                                <input type="text" id="name" name="name" required
+                                    class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                            </div>
+                        </div>
+                        <div class="p-2 w-1/2">
+                            <div class="relative">
+                                <label for="email" class="leading-7 text-sm text-gray-600">Email</label>
+                                <input type="email" id="email" name="email" required
+                                    class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                            </div>
+                        </div>
+                        <div class="p-2 w-full">
+                            <div class="relative">
+                                <label for="message" class="leading-7 text-sm text-gray-600">Please specify your
+                                    details here</label>
+                                <textarea id="message" name="message" required
+                                    class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 h-32 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"></textarea>
+                            </div>
+                        </div>
+                        <div class="p-2 w-full">
+                            <button type="submit"
+                                class="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">
+                                submit request and procced to payment.
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // --- fetch header ---
+        fetch("header.html")
+            .then(r => r.ok ? r.text() : Promise.reject("Header not found"))
+            .then(html => { document.getElementById("header").innerHTML = html; })
+            .catch(err => { console.warn("Header load failed:", err); });
+
+        // --- get industry id from URL ---
+        const params = new URLSearchParams(window.location.search);
+        const industryId = params.get("id");
+
+        const hireDiv = document.getElementById("hire_body");
+
+        // --- render industry details and attach Hire behavior ---
+        (function renderIndustry() {
+            const container = document.getElementById("industryDetails");
+
+            if (industryId !== null && industries[industryId]) {
+                const industry = industries[industryId];
+
+                container.innerHTML = `
+  <img alt="${industry.name}" class="lg:w-1/2 w-full lg:h-auto h-64 object-cover object-center rounded" src="${industry.img}">
+  <div class="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
+    <h1 class="text-gray-900 text-3xl title-font font-medium mb-1">${industry.name}</h1>
+    <p class="leading-relaxed mb-4">${industry.description}</p>
+    <p><b>Products Interested In:</b> ${industry.products}</p>
+    <p><b>Land Needed:</b> ${industry.landNeeded}</p>
+    <p><b>Price Ready to Pay:</b> ${industry.price}</p>
+    <div class="flex mt-6">
+      <button id="backBtn" class="text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">Back</button>
+      <button id="hireBtn" class="ml-4 text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">Apply Now</button>
+    </div>
+  </div>
+`;
+
+                // Back button
+                document.getElementById("backBtn").addEventListener("click", () => {
+                    if (document.referrer) window.history.back();
+                    else window.location.href = "industries.html";
+                });
+
+                // Hire button
+                document.getElementById("hireBtn").addEventListener("click", () => {
+                    hireDiv.style.display = "block";
+                    setTimeout(() => {
+                        hireDiv.scrollIntoView({ behavior: "smooth", block: "start" });
+                    }, 120);
+                });
+
+            } else {
+                container.innerHTML = `<p class="text-red-500">Industry not found!</p>`;
+            }
+        })();
+
+        // --- Hire form validation and redirect ---
+        const form = document.getElementById('hireForm');
+
+        form.addEventListener('submit', function (e) {
+            e.preventDefault(); // prevent default submission
+
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const message = document.getElementById('message').value.trim();
+
+            if (!name) {
+                alert('Please enter your name.');
+                document.getElementById('name').focus();
+                return;
+            }
+
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!email || !emailPattern.test(email)) {
+                alert('Please enter a valid email address.');
+                document.getElementById('email').focus();
+                return;
+            }
+
+            if (!message) {
+                alert('Please enter your requirements.');
+                document.getElementById('message').focus();
+                return;
+            }
+
+            // Redirect to thank you page
+            window.location.href = 'Ipricing.html';
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Farmer Requests</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+<body>
+  <!-- Header -->
+  <div id="header"></div>
+
+  <!-- Farmer Requests Section -->
+  <section class="text-gray-600 body-font">
+    <div class="container px-5 py-24 mx-auto">
+      <div class="flex flex-col text-center w-full mb-20">
+        <h1 class="sm:text-4xl text-3xl font-medium title-font mb-2 text-gray-900">
+          Farmer Requests
+        </h1>
+        <p class="lg:w-2/3 mx-auto leading-relaxed text-base">
+          Below is a list of active requests submitted by farmers to industries for land hire opportunities.
+        </p>
+      </div>
+      <div class="lg:w-5/6 w-full mx-auto overflow-auto">
+        <table class="table-auto w-full text-left whitespace-no-wrap">
+          <thead>
+            <tr>
+              <th class="px-4 py-3 bg-gray-100 text-sm font-medium text-gray-900 rounded-tl rounded-bl">
+                Farmer Name (ID)
+              </th>
+              <th class="px-4 py-3 bg-gray-100 text-sm font-medium text-gray-900">
+                Requested To (Industry)
+              </th>
+              <th class="px-4 py-3 bg-gray-100 text-sm font-medium text-gray-900 rounded-tr rounded-br">
+                Description
+              </th>
+            </tr>
+          </thead>
+          <tbody id="farmerRequests">
+            <!-- Frequest.js will inject rows here -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- External JS -->
+  <script src="Frequest.js"></script>
+</body>
+</html>
+
+<script>
+  // --- fetch header ---
+  fetch("header.html")
+    .then(r => r.ok ? r.text() : Promise.reject("Header not found"))
+    .then(html => { document.getElementById("header").innerHTML = html; })
+    .catch(err => { console.warn("Header load failed:", err); });
+</script>
